@@ -1,20 +1,20 @@
+use invaders::frame::{self, new_frame, Drawable};
+use invaders::invaders::Invaders;
+use invaders::player::Player;
+use invaders::render::render;
+use rusty_audio::Audio;
 use std::error::Error;
 use std::sync::mpsc;
 use std::time::{Duration, Instant};
-use invaders::invaders::Invaders;
-use invaders::render::render;
-use invaders::frame::{self, new_frame, Drawable};
-use invaders::player::Player;
-use rusty_audio::Audio;
 use std::{io, thread};
 //use std::sync::mpsc::{self, Receiver, Sender};
-use crossterm::{terminal, ExecutableCommand};
-use crossterm::terminal::EnterAlternateScreen;
-use crossterm::terminal::LeaveAlternateScreen;
+use crossterm::cursor::{Hide, Show};
 use crossterm::event;
 use crossterm::event::Event;
 use crossterm::event::KeyCode;
-use crossterm::cursor::{Hide, Show};
+use crossterm::terminal::EnterAlternateScreen;
+use crossterm::terminal::LeaveAlternateScreen;
+use crossterm::{terminal, ExecutableCommand};
 
 fn main() -> Result<(), Box<dyn Error>> {
     let mut audio = Audio::new();
@@ -68,7 +68,7 @@ fn main() -> Result<(), Box<dyn Error>> {
                         if player.shoot() {
                             audio.play("pew");
                         }
-                    },
+                    }
                     KeyCode::Esc | KeyCode::Char('q') => {
                         audio.play("lose");
                         break 'gameloop;
